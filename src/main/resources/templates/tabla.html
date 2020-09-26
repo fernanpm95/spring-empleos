@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+<meta charset="UTF-8">
+<title>Listado de vacantes</title>
+</head>
+<body>
+
+	<img th:src="@{/images/logo.png}" width="136" height="136" >
+
+	<h1 class="text-primary">Lista de vacantes</h1>
+
+	<table class="table table-dark table-striped table-bordered table-hover">
+		<tr>
+			<th>Logo</th>
+			<th>Id</th>
+			<th>Nombre</th>
+			<th>Fecha de publicación</th>
+			<th>Salario</th>
+			<th>Descripción</th>
+			<th>Destacada</th>
+			<th>Detalle</th>
+			<th>Borrar</th>
+		</tr>
+		<tr th:each="vacante:${vacantes}">
+			<td>
+			<img th:src="@{/images/{img}(img=${vacante.imagen})}" width="136" height="136" >
+			</td>
+			<td th:text="${vacante.id}"></td>
+			<td th:text="${vacante.nombre}"></td>
+			<td th:text="${vacante.fecha}"></td>
+			<td th:text="${vacante.salario}"></td>
+			<td th:text="${vacante.descripcion}"></td>
+<!-- 			<td th:text="${vacante.destacado}"></td> -->
+<!-- 			<td th:text="${vacante.destacado == 1 ? 'Sí' : 'No'}"></td> -->
+			<td>
+				<span th:if="${vacante.destacado==1}" class="badge badge-success">Sí</span>
+				<span th:unless="${vacante.destacado==1}" class="badge badge-danger">No</span>
+			</td>
+			<td>
+				<a th:href="@{/vacantes/view/{id} (id=${vacante.id})}" class="btn btn-success">Ver detalle</a>
+			</td>
+			<td>
+				<a th:href="@{/vacantes/delete(id=${vacante.id})}" class="btn btn-danger">Borrar</a>
+			</td>
+		</tr>
+	</table>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</body>
+</html>
